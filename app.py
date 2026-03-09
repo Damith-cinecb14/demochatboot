@@ -5,11 +5,10 @@ from huggingface_hub import InferenceClient
 
 st.set_page_config(page_title="AI Chat & Question & Answering  App")
 
-# --- 1. SET UP CLIENTS ---
-# Make sure to add HF_TOKEN to your Streamlit Secrets!
+
 hf_client = InferenceClient(api_key=st.secrets.get("HF_TOKEN"))
 
-# --- 2. CHATBOT SECTION (OpenAI) ---
+
 st.header("Chatbot")
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
@@ -24,13 +23,12 @@ else:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    if prompt := st.chat_input("What is up?"):
+    if prompt := st.chat_input("Type Your Question ?"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
 
         with st.chat_message("assistant"):
-            # Fixed the list comprehension logic here
             stream = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[{"role": m["role"], "content": m["content"]} for m in st.session_state.messages],
@@ -41,7 +39,7 @@ else:
 
 st.divider()
 
-# --- 3. QA SECTION (Hugging Face Inference - No RAM usage!) ---
+
 st.header("AI Question Answering")
 
 context = st.text_area("Enter Context", height=250)
@@ -49,9 +47,9 @@ question = st.text_input("Ask a question about the context")
 
 if st.button("Get Answer"):
     if context and question:
-        with st.spinner("Asking Hugging Face..."):
+        with st.spinner("Asking AI..."):
             try:
-                # This calls the model remotely so your app stays fast/light
+
                 result = hf_client.question_answering(
                     model="timpal0l/mdeberta-v3-base-squad2",
                     question=question,
