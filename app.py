@@ -8,8 +8,9 @@ from openai import OpenAI
 
 
 st.set_page_config(page_title="AI Question and Answering app")
+st.header("Chatbot")
 # Show title and description.
-st.title("💬 Chatbot")
+
 st.write(
     "This is a simple chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
     "To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys). "
@@ -63,6 +64,7 @@ else:
         st.session_state.messages.append({"role": "assistant", "content": response})
 
 
+st.header("AI Question Answering")
 @st.cache_resource
 def load_model():
     return pipeline(task="question-answering", model="timpal0l/mdeberta-v3-base-squad2")
@@ -82,11 +84,12 @@ with col1:
 with col2:
     st.markdown("Powered by C-Clarke Institute students")
 
-if context and question and submit_btn:
-    with st.spinner("Answering your questions........"):
-        result = qa_model(question=question,context=context)
-        st.success(result['answer'])
-        st.metric("Confidence Score", round(result["score"], 3))
+if submit_btn:
+    if context and question:
+        with st.spinner("Answering your questions........"):
+            result = qa_model(question=question, context=context)
+            st.success(result['answer'])
+            st.metric("Confidence Score", round(result["score"], 3))
+    else:
+        st.warning("Please enter both context and question")
 
-else:
-    st.markdown("invalid Input....")
