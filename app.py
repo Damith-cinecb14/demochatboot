@@ -4,7 +4,7 @@ from openai import OpenAI
 from huggingface_hub import InferenceClient
 
 st.set_page_config(page_title="AI Chat & Question & Answering  App")
-
+col1= st.columns([2,1])
 # --- 1. SET UP CLIENTS ---
 # Make sure to add HF_TOKEN to your Streamlit Secrets!
 hf_client = InferenceClient(api_key=st.secrets.get("HF_TOKEN"))
@@ -63,3 +63,5 @@ if st.button("Get Answer"):
                 st.error(f"Error: {e}. (Make sure your HF_TOKEN is valid)")
     else:
         st.warning("Please provide both context and a question.")
+with col1:
+    st.markdown("Powered by C-Clarke Institute students")
