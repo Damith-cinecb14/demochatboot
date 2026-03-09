@@ -63,6 +63,6 @@ if st.button("Get Answer"):
                 st.error(f"Error: {e}. (Make sure your HF_TOKEN is valid)")
     else:
         st.warning("Please provide both context and a question.")
-col1 = st.columns([2, 1])
-with col1:
-    st.markdown("Powered by C-Clarke Institute students")
+
+st.divider()
+st.markdown("Powered by C-Clarke Institute students")
