@@ -3,14 +3,14 @@ import os
 from openai import OpenAI
 from huggingface_hub import InferenceClient
 
-st.set_page_config(page_title="AI Chat & QA App")
+st.set_page_config(page_title="AI Chat & Question & Answering  App")
 
 # --- 1. SET UP CLIENTS ---
 # Make sure to add HF_TOKEN to your Streamlit Secrets!
 hf_client = InferenceClient(api_key=st.secrets.get("HF_TOKEN"))
 
 # --- 2. CHATBOT SECTION (OpenAI) ---
-st.header("💬 Chatbot")
+st.header("Chatbot")
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
 if not openai_api_key:
@@ -42,9 +42,9 @@ else:
 st.divider()
 
 # --- 3. QA SECTION (Hugging Face Inference - No RAM usage!) ---
-st.header("🔎 AI Question Answering")
+st.header("AI Question Answering")
 
-context = st.text_area("Enter Context", height=150)
+context = st.text_area("Enter Context", height=250)
 question = st.text_input("Ask a question about the context")
 
 if st.button("Get Answer"):
