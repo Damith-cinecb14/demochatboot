@@ -56,7 +56,7 @@ if st.button("Get Answer"):
                     context=context
                 )
                 st.success(f"Answer: {result.answer}")
-                st.write(f"Confidence: {round(result.score, 3)}")
+                st.metric("Confidence Score", round(result["score"], 3))
             except Exception as e:
                 st.error(f"Error: {e}. (Make sure your HF_TOKEN is valid)")
     else:
