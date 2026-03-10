@@ -13,7 +13,7 @@ st.header("Chatbot")
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 
 if not openai_api_key:
-    st.info("Please add your OpenAI API key to the sidebar to use the chatbot.")
+    st.info("For activate please add your OpenAI API key to the sidebar to use the chatbot.")
 else:
     client = OpenAI(api_key=openai_api_key)
     if "messages" not in st.session_state:
